@@ -24,17 +24,17 @@ The user can make http requests to the server to get a JSON response of database
 ## Application
 
 
-Walkthrough video: 
+Walkthrough video: [Social network api.webm](https://user-images.githubusercontent.com/111660791/219977876-d945a9b6-3f3b-4c77-ae8c-fb742c5c3835.webm)
+
 
 
 
 ## Credits
 
 
-mysql2
+mongoDB
+mongoose
 express
-dotenv
-sequelize
 
 
 ## License

@@ -5,8 +5,9 @@ module.exports = {
     async createThought(req, res) {
         const newThought = await thought.create(req.body)
         await user.findOneAndUpdate(
-            { username: thought.username },
-            { $addToSet: { thoughts: newThought } }
+            { username: newThought.username },
+            { //$addToSet
+                $push: { thoughts: newThought } }
         )
         if (!newThought) {
           res.status(404).json({ message: 'No user with this username!' })
@@ -27,7 +28,7 @@ module.exports = {
     },
 
     getSingleThought(req, res) {
-        thought.findOne({_id: req.params.userId})
+        thought.findOne({_id: req.params.thoughtId})
         .select('-__v')
         .then((thought) => {
             if (!thought) {
@@ -94,9 +95,9 @@ module.exports = {
         )
         .then((thought) => {
             if (!thought) {
-                res.status(404).json({ message: 'thought not found' })
+                res.status(404).json({ message: 'Reaction not found' })
             } else { 
-                res.json(thought) 
+                res.json('Reaction removed') 
             }
         })
         .catch((err) => res.status(500).json(err));

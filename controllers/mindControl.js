@@ -59,7 +59,7 @@ module.exports = {
                 res.json(thought) }
             })
         .catch((err) => res.status(500).json(err))
-  },
+    },
 
     addReaction(req, res) {
         thought.findOneAndUpdate(
@@ -74,7 +74,7 @@ module.exports = {
             res.json(thought) }
         })
     .catch((err) => res.status(500).json(err))
-},
+    },
 
     removeReaction(req, res) {
         thought.findOneAndUpdate(

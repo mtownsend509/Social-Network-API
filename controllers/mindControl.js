@@ -2,13 +2,23 @@ const { user, thought } = require('../models');
 
 module.exports = {
 
-    createThought(req, res) {
-        thought.create(req.body)
-        .then((thought) => res.json(thought))
-        .catch((err) => {console.log(err)
-        return res.status(500).json(err)
-        })
-    },
+    async createThought(req, res) {
+        const newThought = await thought.create(req.body)
+        await user.findOneAndUpdate(
+            { username: thought.username },
+            { $addToSet: { thoughts: newThought } }
+        )
+        if (!newThought) {
+          res.status(404).json({ message: 'No user with this username!' })
+        } else {
+          res.json(newThought)
+        }
+      },
+ //       .then((thought) => res.json(thought))
+   //     .catch((err) => {console.log(err)
+     //   return res.status(500).json(err)
+    //     })
+    // },
 
     getAllThoughts(req, res) {
         thought.find()
